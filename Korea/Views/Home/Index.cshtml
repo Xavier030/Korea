@@ -1,23 +1,214 @@
-﻿<!DOCTYPE html>
+﻿<!-- <!DOCTYPE html> -->
+<!-- <html lang="zh"> -->
+<!-- <head> -->
+<!-- <meta charset="utf-8"> -->
+<!-- <title>韩国旅行攒钱计划（个人目标 + ToDo）</title> -->
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+<!-- <style> -->
+<!-- body { background-color: #f8f9fa; } -->
+<!-- .piggy-bank { -->
+<!--     background: white; -->
+<!--     border-radius: 12px; -->
+<!--     padding: 20px; -->
+<!--     box-shadow: 0 4px 10px rgba(0,0,0,0.1); -->
+<!--     margin-bottom: 15px; -->
+<!-- } -->
+<!-- </style> -->
+<!-- </head> -->
+<!-- <body class="container py-4"> -->
+
+<!-- <h1 class="text-center mb-4">🇰🇷 韩国旅行攒钱计划</h1> -->
+
+<!-- <h3>💰 攒钱进度</h3> -->
+<!-- <div class="mb-4"> -->
+<!--     <p>总攒钱进度：</p> -->
+<!--     <div class="progress mb-3"> -->
+<!--         <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" style="width:0%">0%</div> -->
+<!--     </div> -->
+<!-- </div> -->
+
+<!-- <div class="row g-3" id="piggyRow"></div> -->
+
+<!-- <hr class="my-4"> -->
+
+<!-- <h3>📝 To-Do List</h3> -->
+<!-- <div class="input-group mb-3"> -->
+<!--     <input type="text" id="todoInput" class="form-control" placeholder="输入留言或计划"> -->
+<!--     <button class="btn btn-primary" onclick="addTodo()">添加</button> -->
+<!-- </div> -->
+<!-- <ul class="list-group mb-3" id="todoList"></ul> -->
+<!-- <button class="btn btn-secondary mb-4" onclick="clearTodos()">清空所有 To-Do</button> -->
+
+<!-- <script> -->
+<!-- const people = [ -->
+<!--     {name:"周", target:10000}, -->
+<!--     {name:"何", target:7000}, -->
+<!--     {name:"沈", target:10000}, -->
+<!--     {name:"李", target:20000}, -->
+<!--     {name:"泉", target:10000} -->
+<!-- ]; -->
+
+<!-- const row = document.getElementById("piggyRow"); -->
+
+<!-- people.forEach(p=>{ -->
+<!--     const saved = Number(localStorage.getItem(p.name)) || 0; -->
+<!--     row.innerHTML += ` -->
+<!--     <div class="col-md-3"> -->
+<!--         <div class="piggy-bank text-center"> -->
+<!--             <h5>${p.name}</h5> -->
+<!--             <p>目标金额：<strong>￥${p.target}</strong></p> -->
+<!--             <p>当前金额：<strong>￥<span id="${p.name}-amount">${saved}</span></strong></p> -->
+<!--             <input type="number" class="form-control mb-2" id="${p.name}-input" placeholder="存入金额"> -->
+<!--             <button class="btn btn-success w-100 mb-1" onclick="saveMoney('${p.name}',${p.target})">存钱</button> -->
+<!--             <input type="number" class="form-control mb-2" id="${p.name}-withdraw" placeholder="取出金额"> -->
+<!--             <button class="btn btn-warning w-100 mb-1" onclick="withdrawMoney('${p.name}')">取钱</button> -->
+<!--             <button class="btn btn-info w-100 mb-1" onclick="viewHistory('${p.name}')">查看明细</button> -->
+<!--             <button class="btn btn-danger w-100" onclick="clearHistory('${p.name}')">清空明细</button> -->
+<!--         </div> -->
+<!--     </div>`; -->
+<!-- }); -->
+
+<!-- function updateProgress(){ -->
+<!--     let totalSaved = 0; -->
+<!--     let totalTarget = 0; -->
+<!--     people.forEach(p=>{ -->
+<!--         const saved = Number(localStorage.getItem(p.name)) || 0; -->
+<!--         totalSaved += saved; -->
+<!--         totalTarget += p.target; -->
+<!--     }); -->
+<!--     const bar = document.getElementById("progressBar"); -->
+<!--     const percent = Math.min((totalSaved/totalTarget)*100,100); -->
+<!--     bar.style.width = percent+"%"; -->
+<!--     bar.innerText = `${Math.floor(percent)}%`; -->
+<!-- } -->
+
+<!-- function saveMoney(name,target){ -->
+<!--     const input = document.getElementById(`${name}-input`); -->
+<!--     const amount = Number(input.value); -->
+<!--     if(amount<=0){ alert("请输入有效金额"); return; } -->
+<!--     let total = Number(localStorage.getItem(name))||0; -->
+<!--     total += amount; -->
+<!--     if(total>target){ total=target; } -->
+<!--     localStorage.setItem(name,total); -->
+<!--     document.getElementById(`${name}-amount`).innerText = total; -->
+<!--     input.value=""; -->
+<!--     addTransaction(name,"存入",amount); -->
+<!--     updateProgress(); -->
+<!-- } -->
+
+<!-- function withdrawMoney(name){ -->
+<!--     const input = document.getElementById(`${name}-withdraw`); -->
+<!--     const amount = Number(input.value); -->
+<!--     let total = Number(localStorage.getItem(name))||0; -->
+<!--     if(amount<=0 || amount>total){ alert("金额无效或超过当前余额"); return; } -->
+<!--     total -= amount; -->
+<!--     localStorage.setItem(name,total); -->
+<!--     document.getElementById(`${name}-amount`).innerText = total; -->
+<!--     input.value=""; -->
+<!--     addTransaction(name,"取出",amount); -->
+<!--     updateProgress(); -->
+<!-- } -->
+
+<!-- function addTransaction(name,type,amount){ -->
+<!--     const records = JSON.parse(localStorage.getItem(name+"_records")) || []; -->
+<!--     records.push({type:type,amount:amount,date:new Date().toLocaleString()}); -->
+<!--     localStorage.setItem(name+"_records",JSON.stringify(records)); -->
+<!-- } -->
+
+<!-- function viewHistory(name){ -->
+<!--     const records = JSON.parse(localStorage.getItem(name+"_records")) || []; -->
+<!--     let msg = `=== ${name} 的存取明细 ===\n`; -->
+<!--     if(records.length===0){ msg+="无记录"; } -->
+<!--     else{ -->
+<!--         records.forEach(r=>{ -->
+<!--             msg+=`${r.date} | ${r.type} ￥${r.amount}\n`; -->
+<!--         }); -->
+<!--     } -->
+<!--     alert(msg); -->
+<!-- } -->
+
+<!-- function clearHistory(name){ -->
+<!--     if(confirm(`确定要清空 ${name} 的存取明细吗？`)){ -->
+<!--         localStorage.removeItem(name+"_records"); -->
+<!--         alert(`${name} 的明细已清空`); -->
+<!--     } -->
+<!-- } -->
+
+<!-- /* Todo */ -->
+<!-- function loadTodos(){ -->
+<!--     const todos=JSON.parse(localStorage.getItem("todos"))||[]; -->
+<!--     const list=document.getElementById("todoList"); -->
+<!--     list.innerHTML=""; -->
+<!--     todos.forEach((t,i)=>{ -->
+<!--         list.innerHTML+=` -->
+<!--         <li class="list-group-item d-flex justify-content-between align-items-center"> -->
+<!--             <div> -->
+<!--                 <input type="checkbox" ${t.done?"checked":""} onchange="toggleTodo(${i})"> -->
+<!--                 <span class="${t.done?"text-decoration-line-through":""}">${t.text}</span> -->
+<!--             </div> -->
+<!--             <button class="btn btn-sm btn-danger" onclick="deleteTodo(${i})">删除</button> -->
+<!--         </li>`; -->
+<!--     }); -->
+<!-- } -->
+
+<!-- function addTodo(){ -->
+<!--     const input=document.getElementById("todoInput"); -->
+<!--     if(!input.value) return; -->
+<!--     const todos=JSON.parse(localStorage.getItem("todos"))||[]; -->
+<!--     todos.push({text:input.value,done:false}); -->
+<!--     localStorage.setItem("todos",JSON.stringify(todos)); -->
+<!--     input.value=""; -->
+<!--     loadTodos(); -->
+<!-- } -->
+
+<!-- function toggleTodo(index){ -->
+<!--     const todos=JSON.parse(localStorage.getItem("todos"))||[]; -->
+<!--     todos[index].done=!todos[index].done; -->
+<!--     localStorage.setItem("todos",JSON.stringify(todos)); -->
+<!--     loadTodos(); -->
+<!-- } -->
+
+<!-- function deleteTodo(index){ -->
+<!--     const todos=JSON.parse(localStorage.getItem("todos"))||[]; -->
+<!--     todos.splice(index,1); -->
+<!--     localStorage.setItem("todos",JSON.stringify(todos)); -->
+<!--     loadTodos(); -->
+<!-- } -->
+
+<!-- function clearTodos(){ -->
+<!--     if(confirm("确定要清空所有 To-Do 吗？")){ -->
+<!--         localStorage.removeItem("todos"); -->
+<!--         loadTodos(); -->
+<!--     } -->
+<!-- } -->
+
+<!-- loadTodos(); -->
+<!-- updateProgress(); -->
+<!-- </script> -->
+
+<!-- </body> -->
+<!-- </html> -->
+<!DOCTYPE html>
 <html lang="zh">
 <head>
-<meta charset="utf-8">
-<title>韩国旅行攒钱计划（个人目标 + ToDo）</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-body { background-color: #f8f9fa; }
-.piggy-bank {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    margin-bottom: 15px;
-}
-</style>
+    <meta charset="utf-8">
+    <title>韩国旅行攒钱计划（多人共享版）</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+        body { background-color: #f8f9fa; }
+        .piggy-bank {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body class="container py-4">
 
-<h1 class="text-center mb-4">🇰🇷 韩国旅行攒钱计划</h1>
+<h1 class="text-center mb-4">🇰🇷 韩国旅行攒钱计划（多人共享版）</h1>
 
 <h3>💰 攒钱进度</h3>
 <div class="mb-4">
@@ -25,6 +216,7 @@ body { background-color: #f8f9fa; }
     <div class="progress mb-3">
         <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" style="width:0%">0%</div>
     </div>
+    <p>总金额（人民币）：￥<span id="totalCNY">0</span></p>
 </div>
 
 <div class="row g-3" id="piggyRow"></div>
@@ -37,153 +229,159 @@ body { background-color: #f8f9fa; }
     <button class="btn btn-primary" onclick="addTodo()">添加</button>
 </div>
 <ul class="list-group mb-3" id="todoList"></ul>
-<button class="btn btn-secondary mb-4" onclick="clearTodos()">清空所有 To-Do</button>
 
 <script>
-const people = [
-    {name:"周", target:10000},
-    {name:"何", target:7000},
-    {name:"沈", target:10000},
-    {name:"李", target:20000},
-    {name:"泉", target:10000}
-];
+    let people = [];
+    let transactions = {};
+    let todos = [];
+    let exchangeRate = 0; // KRW → CNY
 
-const row = document.getElementById("piggyRow");
+    async function init() {
+        await fetchExchangeRate();
+        await fetchPeople();
+        await fetchTodos();
+        renderPeople();
+        renderTodos();
+    }
 
-people.forEach(p=>{
-    const saved = Number(localStorage.getItem(p.name)) || 0;
-    row.innerHTML += `
-    <div class="col-md-3">
-        <div class="piggy-bank text-center">
-            <h5>${p.name}</h5>
-            <p>目标金额：<strong>￥${p.target}</strong></p>
-            <p>当前金额：<strong>￥<span id="${p.name}-amount">${saved}</span></strong></p>
-            <input type="number" class="form-control mb-2" id="${p.name}-input" placeholder="存入金额">
-            <button class="btn btn-success w-100 mb-1" onclick="saveMoney('${p.name}',${p.target})">存钱</button>
-            <input type="number" class="form-control mb-2" id="${p.name}-withdraw" placeholder="取出金额">
-            <button class="btn btn-warning w-100 mb-1" onclick="withdrawMoney('${p.name}')">取钱</button>
-            <button class="btn btn-info w-100 mb-1" onclick="viewHistory('${p.name}')">查看明细</button>
-            <button class="btn btn-danger w-100" onclick="clearHistory('${p.name}')">清空明细</button>
-        </div>
-    </div>`;
-});
+    async function fetchExchangeRate() {
+        try {
+            const res = await axios.get("/api/exchange?from=KRW&to=CNY");
+            exchangeRate = res.data.rate;
+        } catch(e) {
+            console.error("获取汇率失败", e);
+            exchangeRate = 0.005;
+        }
+    }
 
-function updateProgress(){
-    let totalSaved = 0;
-    let totalTarget = 0;
-    people.forEach(p=>{
-        const saved = Number(localStorage.getItem(p.name)) || 0;
-        totalSaved += saved;
-        totalTarget += p.target;
-    });
-    const bar = document.getElementById("progressBar");
-    const percent = Math.min((totalSaved/totalTarget)*100,100);
-    bar.style.width = percent+"%";
-    bar.innerText = `${Math.floor(percent)}%`;
-}
+    // 获取所有人和交易记录
+    async function fetchPeople() {
+        const res = await axios.get("/api/people");
+        people = res.data;
+        for (const p of people) {
+            const t = await axios.get(`/api/people/${p.id}/transactions`);
+            transactions[p.id] = t.data;
+        }
+    }
 
-function saveMoney(name,target){
-    const input = document.getElementById(`${name}-input`);
-    const amount = Number(input.value);
-    if(amount<=0){ alert("请输入有效金额"); return; }
-    let total = Number(localStorage.getItem(name))||0;
-    total += amount;
-    if(total>target){ total=target; }
-    localStorage.setItem(name,total);
-    document.getElementById(`${name}-amount`).innerText = total;
-    input.value="";
-    addTransaction(name,"存入",amount);
-    updateProgress();
-}
+    // 获取 ToDo
+    async function fetchTodos() {
+        const res = await axios.get("/api/todos");
+        todos = res.data;
+    }
 
-function withdrawMoney(name){
-    const input = document.getElementById(`${name}-withdraw`);
-    const amount = Number(input.value);
-    let total = Number(localStorage.getItem(name))||0;
-    if(amount<=0 || amount>total){ alert("金额无效或超过当前余额"); return; }
-    total -= amount;
-    localStorage.setItem(name,total);
-    document.getElementById(`${name}-amount`).innerText = total;
-    input.value="";
-    addTransaction(name,"取出",amount);
-    updateProgress();
-}
+    // 渲染存钱计划
+    function renderPeople() {
+        const row = document.getElementById("piggyRow");
+        row.innerHTML = "";
+        let totalSaved = 0;
+        let totalTarget = 0;
+        people.forEach(p => {
+            const saved = transactions[p.id]?.reduce((sum, t) => sum + (t.type==="存入"?t.amount:-t.amount), 0) || 0;
+            const percent = Math.min((saved/p.target)*100,100);
+            totalSaved += saved;
+            totalTarget += p.target;
 
-function addTransaction(name,type,amount){
-    const records = JSON.parse(localStorage.getItem(name+"_records")) || [];
-    records.push({type:type,amount:amount,date:new Date().toLocaleString()});
-    localStorage.setItem(name+"_records",JSON.stringify(records));
-}
-
-function viewHistory(name){
-    const records = JSON.parse(localStorage.getItem(name+"_records")) || [];
-    let msg = `=== ${name} 的存取明细 ===\n`;
-    if(records.length===0){ msg+="无记录"; }
-    else{
-        records.forEach(r=>{
-            msg+=`${r.date} | ${r.type} ￥${r.amount}\n`;
+            row.innerHTML += `
+        <div class="col-md-3">
+            <div class="piggy-bank text-center">
+                <h5>${p.name}</h5>
+                <p>目标金额：<strong>￥${p.target}</strong></p>
+                <p>当前金额：<strong>￥<span id="amount-${p.id}">${saved}</span></strong></p>
+                <input type="number" class="form-control mb-2" id="input-${p.id}" placeholder="存入金额">
+                <button class="btn btn-success w-100 mb-1" onclick="saveMoney(${p.id})">存钱</button>
+                <input type="number" class="form-control mb-2" id="withdraw-${p.id}" placeholder="取出金额">
+                <button class="btn btn-warning w-100 mb-1" onclick="withdrawMoney(${p.id})">取钱</button>
+                <button class="btn btn-info w-100 mb-1" onclick="viewHistory(${p.id})">查看明细</button>
+            </div>
+        </div>`;
         });
-    }
-    alert(msg);
-}
 
-function clearHistory(name){
-    if(confirm(`确定要清空 ${name} 的存取明细吗？`)){
-        localStorage.removeItem(name+"_records");
-        alert(`${name} 的明细已清空`);
-    }
-}
+        // 更新总进度条
+        const bar = document.getElementById("progressBar");
+        const percent = Math.min((totalSaved/totalTarget)*100,100);
+        bar.style.width = percent+"%";
+        bar.innerText = `${Math.floor(percent)}%`;
 
-/* Todo */
-function loadTodos(){
-    const todos=JSON.parse(localStorage.getItem("todos"))||[];
-    const list=document.getElementById("todoList");
-    list.innerHTML="";
-    todos.forEach((t,i)=>{
-        list.innerHTML+=`
+        // 更新总人民币金额
+        document.getElementById("totalCNY").innerText = (totalSaved*exchangeRate).toFixed(2);
+    }
+
+    // 存钱
+    async function saveMoney(personId) {
+        const input = document.getElementById(`input-${personId}`);
+        const amount = Number(input.value);
+        if(amount<=0){ alert("请输入有效金额"); return; }
+        await axios.post(`/api/people/${personId}/transactions`, { type: "存入", amount });
+        input.value = "";
+        await fetchPeople();
+        renderPeople();
+    }
+
+    // 取钱
+    async function withdrawMoney(personId) {
+        const input = document.getElementById(`withdraw-${personId}`);
+        const amount = Number(input.value);
+        const saved = transactions[personId]?.reduce((sum, t) => sum + (t.type==="存入"?t.amount:-t.amount), 0) || 0;
+        if(amount<=0 || amount>saved){ alert("金额无效或超过当前余额"); return; }
+        await axios.post(`/api/people/${personId}/transactions`, { type: "取出", amount });
+        input.value = "";
+        await fetchPeople();
+        renderPeople();
+    }
+
+    // 查看明细
+    function viewHistory(personId) {
+        const records = transactions[personId] || [];
+        let msg = `=== ${people.find(p=>p.id===personId).name} 的存取明细 ===\n`;
+        if(records.length===0){ msg+="无记录"; }
+        else {
+            records.forEach(r => {
+                msg += `${new Date(r.date).toLocaleString()} | ${r.type} ￥${r.amount} ≈ ￥${(r.amount*exchangeRate).toFixed(2)} 人民币\n`;
+            });
+        }
+        alert(msg);
+    }
+
+    // ---------------- ToDo ----------------
+    function renderTodos() {
+        const list = document.getElementById("todoList");
+        list.innerHTML = "";
+        todos.forEach(t => {
+            list.innerHTML += `
         <li class="list-group-item d-flex justify-content-between align-items-center">
             <div>
-                <input type="checkbox" ${t.done?"checked":""} onchange="toggleTodo(${i})">
+                <input type="checkbox" ${t.done?"checked":""} onchange="toggleTodo(${t.id})">
                 <span class="${t.done?"text-decoration-line-through":""}">${t.text}</span>
             </div>
-            <button class="btn btn-sm btn-danger" onclick="deleteTodo(${i})">删除</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteTodo(${t.id})">删除</button>
         </li>`;
-    });
-}
-
-function addTodo(){
-    const input=document.getElementById("todoInput");
-    if(!input.value) return;
-    const todos=JSON.parse(localStorage.getItem("todos"))||[];
-    todos.push({text:input.value,done:false});
-    localStorage.setItem("todos",JSON.stringify(todos));
-    input.value="";
-    loadTodos();
-}
-
-function toggleTodo(index){
-    const todos=JSON.parse(localStorage.getItem("todos"))||[];
-    todos[index].done=!todos[index].done;
-    localStorage.setItem("todos",JSON.stringify(todos));
-    loadTodos();
-}
-
-function deleteTodo(index){
-    const todos=JSON.parse(localStorage.getItem("todos"))||[];
-    todos.splice(index,1);
-    localStorage.setItem("todos",JSON.stringify(todos));
-    loadTodos();
-}
-
-function clearTodos(){
-    if(confirm("确定要清空所有 To-Do 吗？")){
-        localStorage.removeItem("todos");
-        loadTodos();
+        });
     }
-}
 
-loadTodos();
-updateProgress();
+    async function addTodo() {
+        const input = document.getElementById("todoInput");
+        if(!input.value) return;
+        await axios.post("/api/todos", { text: input.value });
+        input.value = "";
+        await fetchTodos();
+        renderTodos();
+    }
+
+    async function toggleTodo(id) {
+        await axios.put(`/api/todos/${id}`);
+        await fetchTodos();
+        renderTodos();
+    }
+
+    async function deleteTodo(id) {
+        await axios.delete(`/api/todos/${id}`);
+        await fetchTodos();
+        renderTodos();
+    }
+
+    // 初始化
+    init();
 </script>
 
 </body>
