@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /app
 
 # 复制 csproj 并还原依赖
-COPY ./Korea.csproj ./
+COPY Korea/Korea.csproj ./Korea.csproj
 RUN dotnet restore
 
 # 复制剩余文件并构建发布版本
