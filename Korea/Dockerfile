@@ -16,6 +16,6 @@ WORKDIR /app
 COPY --from=build /app/publish .
 
 # 环境变量端口
-ENV PORT=5000
+ENV PORT=5050
 EXPOSE $PORT
 ENTRYPOINT ["dotnet", "Korea.dll"]
