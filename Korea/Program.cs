@@ -31,7 +31,6 @@
 //app.MapControllers();
 //
 //app.Run();
-
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
@@ -39,8 +38,11 @@ using System.Linq;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 注册 MVC + HttpClient
 builder.Services.AddControllersWithViews();
+builder.Services.AddHttpClient();
 
+// CORS
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
@@ -54,7 +56,6 @@ var app = builder.Build();
 app.UseCors();
 app.UseStaticFiles();
 app.UseRouting();
-
 app.UseSwagger();
 app.UseSwaggerUI();
 
@@ -62,15 +63,14 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}"
 );
-// -------- 数据模拟 --------
+
+// -------- 数据模拟（多人共享存钱+ToDo） --------
 var people = new List<Person> {
     new Person{ Id=1, Name="周", Target=10000 },
     new Person{ Id=2, Name="何", Target=7000 },
     new Person{ Id=3, Name="沈", Target=10000 },
-    new Person{ Id=4, Name="李", Target=20000 },
-    new Person{ Id=5, Name="泉", Target=10000 }
+    new Person{ Id=4, Name="李", Target=20000 }
 };
-
 var transactions = new List<Transaction>();
 var todos = new List<Todo>();
 var nextTodoId = 1;
