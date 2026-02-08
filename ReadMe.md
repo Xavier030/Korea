@@ -40,6 +40,8 @@ EXPOSE $PORT
 ENTRYPOINT ["dotnet", "Korea.dll"]
 
 然后再用最新镜像启动：
-docker run --name korea-webservice -e PORT=5050 -p 5050:5050 korea-webservice
+// docker run --name korea-webservice -e PORT=5050 -p 5050:5050 korea-webservice
+docker run --name korea-webservice -p 5050:8080 korea-webservice
+
 
 访问时用 http://localhost:5050
