@@ -9,41 +9,41 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Korea
 build_property.RootNamespace = Korea
-build_property.ProjectDir = /Users/sherry/Documents/Korea/Korea/
+build_property.ProjectDir = /Users/sherry/Documents/Git Korea/Korea/Korea/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/sherry/Documents/Korea/Korea
+build_property.MSBuildProjectDirectory = /Users/sherry/Documents/Git Korea/Korea/Korea
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[/Users/sherry/Documents/Korea/Korea/Views/Home/Index.cshtml]
+[/Users/sherry/Documents/Git Korea/Korea/Korea/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/sherry/Documents/Korea/Korea/Views/Home/Map.cshtml]
+[/Users/sherry/Documents/Git Korea/Korea/Korea/Views/Home/Map.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9NYXAuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/sherry/Documents/Korea/Korea/Views/Shared/Error.cshtml]
+[/Users/sherry/Documents/Git Korea/Korea/Korea/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/sherry/Documents/Korea/Korea/Views/Shared/_ValidationScriptsPartial.cshtml]
+[/Users/sherry/Documents/Git Korea/Korea/Korea/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/sherry/Documents/Korea/Korea/Views/_ViewImports.cshtml]
+[/Users/sherry/Documents/Git Korea/Korea/Korea/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/sherry/Documents/Korea/Korea/Views/_ViewStart.cshtml]
+[/Users/sherry/Documents/Git Korea/Korea/Korea/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/sherry/Documents/Korea/Korea/Views/Shared/_Layout.cshtml]
+[/Users/sherry/Documents/Git Korea/Korea/Korea/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-07x4212yjj

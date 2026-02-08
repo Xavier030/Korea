@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Korea")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7a19c848ca38c4b47e4327bbe3dc58e2b412f5f8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Korea")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Korea")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

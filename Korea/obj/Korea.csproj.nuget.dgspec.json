@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/sherry/Documents/Korea/Korea/Korea.csproj": {}
+    "/Users/sherry/Documents/Git Korea/Korea/Korea/Korea.csproj": {}
   },
   "projects": {
-    "/Users/sherry/Documents/Korea/Korea/Korea.csproj": {
+    "/Users/sherry/Documents/Git Korea/Korea/Korea/Korea.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/sherry/Documents/Korea/Korea/Korea.csproj",
+        "projectUniqueName": "/Users/sherry/Documents/Git Korea/Korea/Korea/Korea.csproj",
         "projectName": "Korea",
-        "projectPath": "/Users/sherry/Documents/Korea/Korea/Korea.csproj",
+        "projectPath": "/Users/sherry/Documents/Git Korea/Korea/Korea/Korea.csproj",
         "packagesPath": "/Users/sherry/.nuget/packages/",
-        "outputPath": "/Users/sherry/Documents/Korea/Korea/obj/",
+        "outputPath": "/Users/sherry/Documents/Git Korea/Korea/Korea/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/sherry/.nuget/NuGet/NuGet.Config"
