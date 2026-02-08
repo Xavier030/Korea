@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>首尔地图搜索收藏（SerpApi + Leaflet）</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<style>
+  body { background:#f8f9fa; }
+  h1 { text-align:center; margin-bottom:20px; }
+  #map { height:400px; width:100%; margin-bottom:20px; border-radius:8px; }
+  #searchContainer { display:flex; gap:5px; margin-bottom:10px; }
+  #searchInput { flex:1; }
+  #searchResults .list-group-item { display:flex; align-items:center; gap:10px; }
+  #searchResults img { width:60px; height:45px; object-fit:cover; border-radius:4px; }
+  .card-container { display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; }
+  .marker-card { flex:1 1 calc(33% - 10px); background:#fff; border-radius:8px; padding:10px; box-shadow:0 1px 5px rgba(0,0,0,0.1); }
+  .marker-card h5 { margin-bottom:5px; font-size:1rem; }
+  .marker-card p { margin:0 0 5px 0; font-size:0.9rem; }
+  .marker-card .btn-group { display:flex; gap:5px; flex-wrap: wrap; }
+</style>
+</head>
+<body class="container py-4">
+
+<h1>首尔地图搜索收藏</h1>
+
+<div id="searchContainer">
+  <input id="searchInput" type="text" class="form-control" placeholder="搜索首尔地点（中/英/韩文）">
+  <button id="btnSearch" class="btn btn-primary">搜索</button>
+  <button id="btnClear" class="btn btn-secondary">清空</button>
+</div>
+
+<div id="searchResults" class="list-group mb-3"></div>
+<div id="map"></div>
+
+<h3>收藏地点卡片列表</h3>
+<div id="markerList" class="card-container"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+let mapMarkers = [];
+let markers = JSON.parse(localStorage.getItem('markers')) || [];
+
+// 初始化 Leaflet 地图
+const seoulCenter = [37.5665, 126.9780];
+const map = L.map('map').setView(seoulCenter, 13);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap"
+}).addTo(map);
+
+// 渲染已有收藏
+markers.forEach(addMapMarker);
+renderMarkerList();
+
+// 搜索 SerpApi
+async function doSearch() {
+    const query = document.getElementById('searchInput').value.trim();
+    if(!query) return;
+
+    try {
+        // 调用你自己的 ASP.NET 后端接口
+        const res = await fetch(`/api/Map/search?query=${encodeURIComponent(query)}`);
+        const data = await res.json();
+
+        const place = data.place_results;
+        if(!place) { alert("未找到结果"); return; }
+
+        const photoUrl = place.thumbnail || (place.images?.[0]?.serpapi_thumbnail) || 'https://via.placeholder.com/80x60';
+        const m = {
+            name: place.title,
+            address: place.address,
+            lat: place.gps_coordinates.latitude,
+            lng: place.gps_coordinates.longitude,
+            photo: photoUrl
+        };
+
+        markers.push(m);
+        localStorage.setItem('markers', JSON.stringify(markers));
+        addMapMarker(m);
+        renderMarkerList();
+
+    } catch(err) {
+        console.error(err);
+        alert('搜索失败，请检查后端是否运行或 API Key 是否正确');
+    }
+}
+
+
+// 添加地图标记
+function addMapMarker(m) {
+    const marker = L.marker([m.lat, m.lng]).addTo(map)
+        .bindPopup(`<strong>${m.name}</strong><br>${m.address}<br><img src="${m.photo}" style="width:120px;height:90px;object-fit:cover">`);
+    mapMarkers.push(marker);
+}
+
+// 渲染收藏卡片
+function renderMarkerList() {
+    const listDiv = document.getElementById('markerList');
+    listDiv.innerHTML = '';
+    markers.forEach((m,i)=>{
+        const div = document.createElement('div');
+        div.className = 'marker-card';
+        div.innerHTML = `
+            <h5>${m.name}</h5>
+            <p>地址: ${m.address}</p>
+            <div class="btn-group">
+                <button class="btn btn-sm btn-primary" onclick="focusMarker(${i})">定位</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteMarker(${i})">删除</button>
+                <button class="btn btn-sm btn-success" onclick="openGoogle(${i})">Google地图</button>
+                <button class="btn btn-sm btn-warning" onclick="openAmap(${i})">高德地图</button>
+            </div>
+        `;
+        listDiv.appendChild(div);
+    });
+}
+
+// 列表操作
+function focusMarker(i) {
+    map.setView([markers[i].lat, markers[i].lng], 16);
+    mapMarkers[i].openPopup();
+}
+function deleteMarker(i) {
+    map.removeLayer(mapMarkers[i]);
+    mapMarkers.splice(i,1);
+    markers.splice(i,1);
+    localStorage.setItem('markers', JSON.stringify(markers));
+    renderMarkerList();
+}
+function openGoogle(i) {
+    const m = markers[i];
+    window.open(`https://www.google.com/maps/search/?api=1&query=${m.lat},${m.lng}`,'_blank');
+}
+function openAmap(i) {
+    const m = markers[i];
+    window.open(`https://uri.amap.com/marker?position=${m.lng},${m.lat}&name=${encodeURIComponent(m.name)}`,'_blank');
+}
+
+// 按钮事件
+document.getElementById('btnSearch').addEventListener('click', doSearch);
+document.getElementById('btnClear').addEventListener('click', ()=>{
+    document.getElementById('searchInput').value='';
+    document.getElementById('searchResults').innerHTML='';
+});
+document.getElementById('searchInput').addEventListener('keydown', e=>{
+    if(e.key==='Enter') doSearch();
+});
+</script>
+</body>
+</html>

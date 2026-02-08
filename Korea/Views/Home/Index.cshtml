@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>韩国旅行攒钱计划（个人目标 + ToDo）</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body { background-color: #f8f9fa; }
+.piggy-bank {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+</style>
+</head>
+<body class="container py-4">
+
+<h1 class="text-center mb-4">🇰🇷 韩国旅行攒钱计划</h1>
+
+<h3>💰 攒钱进度</h3>
+<div class="mb-4">
+    <p>总攒钱进度：</p>
+    <div class="progress mb-3">
+        <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" style="width:0%">0%</div>
+    </div>
+</div>
+
+<div class="row g-3" id="piggyRow"></div>
+
+<hr class="my-4">
+
+<h3>📝 To-Do List</h3>
+<div class="input-group mb-3">
+    <input type="text" id="todoInput" class="form-control" placeholder="输入留言或计划">
+    <button class="btn btn-primary" onclick="addTodo()">添加</button>
+</div>
+<ul class="list-group mb-3" id="todoList"></ul>
+<button class="btn btn-secondary mb-4" onclick="clearTodos()">清空所有 To-Do</button>
+
+<script>
+const people = [
+    {name:"周", target:10000},
+    {name:"何", target:7000},
+    {name:"沈", target:10000},
+    {name:"李", target:20000}
+];
+
+const row = document.getElementById("piggyRow");
+
+people.forEach(p=>{
+    const saved = Number(localStorage.getItem(p.name)) || 0;
+    row.innerHTML += `
+    <div class="col-md-3">
+        <div class="piggy-bank text-center">
+            <h5>${p.name}</h5>
+            <p>目标金额：<strong>￥${p.target}</strong></p>
+            <p>当前金额：<strong>￥<span id="${p.name}-amount">${saved}</span></strong></p>
+            <input type="number" class="form-control mb-2" id="${p.name}-input" placeholder="存入金额">
+            <button class="btn btn-success w-100 mb-1" onclick="saveMoney('${p.name}',${p.target})">存钱</button>
+            <input type="number" class="form-control mb-2" id="${p.name}-withdraw" placeholder="取出金额">
+            <button class="btn btn-warning w-100 mb-1" onclick="withdrawMoney('${p.name}')">取钱</button>
+            <button class="btn btn-info w-100 mb-1" onclick="viewHistory('${p.name}')">查看明细</button>
+            <button class="btn btn-danger w-100" onclick="clearHistory('${p.name}')">清空明细</button>
+        </div>
+    </div>`;
+});
+
+function updateProgress(){
+    let totalSaved = 0;
+    let totalTarget = 0;
+    people.forEach(p=>{
+        const saved = Number(localStorage.getItem(p.name)) || 0;
+        totalSaved += saved;
+        totalTarget += p.target;
+    });
+    const bar = document.getElementById("progressBar");
+    const percent = Math.min((totalSaved/totalTarget)*100,100);
+    bar.style.width = percent+"%";
+    bar.innerText = `${Math.floor(percent)}%`;
+}
+
+function saveMoney(name,target){
+    const input = document.getElementById(`${name}-input`);
+    const amount = Number(input.value);
+    if(amount<=0){ alert("请输入有效金额"); return; }
+    let total = Number(localStorage.getItem(name))||0;
+    total += amount;
+    if(total>target){ total=target; }
+    localStorage.setItem(name,total);
+    document.getElementById(`${name}-amount`).innerText = total;
+    input.value="";
+    addTransaction(name,"存入",amount);
+    updateProgress();
+}
+
+function withdrawMoney(name){
+    const input = document.getElementById(`${name}-withdraw`);
+    const amount = Number(input.value);
+    let total = Number(localStorage.getItem(name))||0;
+    if(amount<=0 || amount>total){ alert("金额无效或超过当前余额"); return; }
+    total -= amount;
+    localStorage.setItem(name,total);
+    document.getElementById(`${name}-amount`).innerText = total;
+    input.value="";
+    addTransaction(name,"取出",amount);
+    updateProgress();
+}
+
+function addTransaction(name,type,amount){
+    const records = JSON.parse(localStorage.getItem(name+"_records")) || [];
+    records.push({type:type,amount:amount,date:new Date().toLocaleString()});
+    localStorage.setItem(name+"_records",JSON.stringify(records));
+}
+
+function viewHistory(name){
+    const records = JSON.parse(localStorage.getItem(name+"_records")) || [];
+    let msg = `=== ${name} 的存取明细 ===\n`;
+    if(records.length===0){ msg+="无记录"; }
+    else{
+        records.forEach(r=>{
+            msg+=`${r.date} | ${r.type} ￥${r.amount}\n`;
+        });
+    }
+    alert(msg);
+}
+
+function clearHistory(name){
+    if(confirm(`确定要清空 ${name} 的存取明细吗？`)){
+        localStorage.removeItem(name+"_records");
+        alert(`${name} 的明细已清空`);
+    }
+}
+
+/* Todo */
+function loadTodos(){
+    const todos=JSON.parse(localStorage.getItem("todos"))||[];
+    const list=document.getElementById("todoList");
+    list.innerHTML="";
+    todos.forEach((t,i)=>{
+        list.innerHTML+=`
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <input type="checkbox" ${t.done?"checked":""} onchange="toggleTodo(${i})">
+                <span class="${t.done?"text-decoration-line-through":""}">${t.text}</span>
+            </div>
+            <button class="btn btn-sm btn-danger" onclick="deleteTodo(${i})">删除</button>
+        </li>`;
+    });
+}
+
+function addTodo(){
+    const input=document.getElementById("todoInput");
+    if(!input.value) return;
+    const todos=JSON.parse(localStorage.getItem("todos"))||[];
+    todos.push({text:input.value,done:false});
+    localStorage.setItem("todos",JSON.stringify(todos));
+    input.value="";
+    loadTodos();
+}
+
+function toggleTodo(index){
+    const todos=JSON.parse(localStorage.getItem("todos"))||[];
+    todos[index].done=!todos[index].done;
+    localStorage.setItem("todos",JSON.stringify(todos));
+    loadTodos();
+}
+
+function deleteTodo(index){
+    const todos=JSON.parse(localStorage.getItem("todos"))||[];
+    todos.splice(index,1);
+    localStorage.setItem("todos",JSON.stringify(todos));
+    loadTodos();
+}
+
+function clearTodos(){
+    if(confirm("确定要清空所有 To-Do 吗？")){
+        localStorage.removeItem("todos");
+        loadTodos();
+    }
+}
+
+loadTodos();
+updateProgress();
+</script>
+
+</body>
+</html>
