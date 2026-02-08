@@ -58,7 +58,7 @@ async function doSearch() {
     if(!query) return;
 
     try {
-        // 调用你自己的 ASP.NET 后端接口
+        // 使用相对路径调用后端 API
         const res = await fetch(`/api/Map/search?query=${encodeURIComponent(query)}`);
         const data = await res.json();
 

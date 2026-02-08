@@ -36,6 +36,9 @@ builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+app.Urls.Add($"http://*:{port}");
+
 // 静态文件
 app.UseStaticFiles();
 
